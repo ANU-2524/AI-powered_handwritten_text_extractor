@@ -1,5 +1,8 @@
 Flask
+flask-cors
 pytesseract
 Pillow
+PyMuPDF
 opencv-python
-flask_cors
+numpy
+gunicorn
