@@ -4,7 +4,8 @@ import os
 from ocr_model import extract_text_from_image, extract_text_from_pdf
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["http://localhost:500", "https://ai-powered-handwritten-text-extract.vercel.app"]}})
+CORS(app, resources={r"/*": {"origins": ["http://localhost:5173", "https://ai-powered-handwritten-text-extract.vercel.app"]}})
+
 
 
 UPLOAD_FOLDER = 'uploads'
