@@ -4,7 +4,8 @@ import os
 from ocr_model import extract_text_from_image, extract_text_from_pdf
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": ["http://localhost:500", "https://ai-powered-handwritten-text-extract.vercel.app"]}})
+
 
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -34,4 +35,4 @@ def extract_text():
 if __name__ == "__main__":
     # ✅ This allows Render to bind to the correct port and host
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
