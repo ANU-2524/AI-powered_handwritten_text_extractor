@@ -1,23 +1,53 @@
 from flask import Flask, request, jsonify
-import pytesseract
-from PIL import Image
 import os
+from ocr_model import extract_text_from_path
+from PIL import Image
+import io
+import tempfile
+from werkzeug.utils import secure_filename
+from flask_cors import CORS
 
 app = Flask(__name__)
-UPLOAD_FOLDER = "../uploads"
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+CORS(app)
 
-@app.route("/extract-text", methods=["POST"])
-def extract_text():
-    if 'image' not in request.files:
-        return jsonify({"error": "No image provided"}), 400
+UPLOAD_FOLDER = 'uploads'
+EXTRACTED_FOLDER = 'extracted_data'
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(EXTRACTED_FOLDER, exist_ok=True)
 
-    image = request.files['image']
-    path = os.path.join(app.config['UPLOAD_FOLDER'], image.filename)
-    image.save(path)
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'pdf'}
 
-    text = pytesseract.image_to_string(Image.open(path), lang='eng')  # Add 'hin' or other langs later
-    return jsonify({"text": text})
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-if __name__ == "__main__":
+@app.route('/extract', methods=['POST'])
+def extract():
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file uploaded'}), 400
+
+    file = request.files['file']
+
+    if file.filename == '':
+        return jsonify({'error': 'Empty filename'}), 400
+
+    if not allowed_file(file.filename):
+        return jsonify({'error': 'Unsupported file type'}), 400
+
+    try:
+        filename = secure_filename(file.filename)
+        filepath = os.path.join(UPLOAD_FOLDER, filename)
+        file.save(filepath)
+
+        extracted_text = extract_text_from_path(filepath)
+
+        if not extracted_text.strip():
+            return jsonify({'error': 'No text found'}), 400
+
+        return jsonify({'extracted_text': extracted_text})
+
+    except Exception as e:
+        print("OCR Error:", e)
+        return jsonify({'error': 'Error extracting text. Please make sure you are uploading a clear image or valid PDF.'}), 500
+
+if __name__ == '__main__':
     app.run(debug=True)
