@@ -26,13 +26,12 @@ const UploadForm = () => {
     try {
       setLoading(true);
       setError('');
-      const response = await axios.post('https://ai-powered-pu0r.onrender.com/extract', formData, {
+      const response = await axios.post('http://localhost:5000/extract', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setExtractedText(response.data.text);
-
+      setExtractedText(response.data.extracted_text);
     } catch (err) {
       console.error("Error:", err);
       setError('Error extracting text. Please make sure you are uploading a clear image or valid PDF.');

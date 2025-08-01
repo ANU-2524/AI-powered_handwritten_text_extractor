@@ -24,7 +24,7 @@ function App() {
     setLoading(true);
 
     try {
-      const res = await fetch("https://ai-powered-pu0r.onrender.com/extract", {
+      const res = await fetch("http://localhost:5000/extract", {
         method: "POST",
         body: formData
       });

@@ -4,9 +4,7 @@ import fitz  # PyMuPDF
 import cv2
 import numpy as np
 import os
-import platform
-if platform.system() == "Windows":
-    pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 
 def preprocess_image(img_path):
     img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
