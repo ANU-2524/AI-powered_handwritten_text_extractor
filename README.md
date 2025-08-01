@@ -1,0 +1,1 @@
+# AI-powered_handwritten_text_extractor
