@@ -1,0 +1,5 @@
+{
+    "filename": "Screenshot_1891.png",
+    "timestamp": "20250801_220034",
+    "extracted_text": "\u00bb Koka x (lass x Klass x fk) da x k_Ka x ki su x ff ka x @roi x Eka x Klass X Q@au x MnP x BNP X Gna x + - ao Xx\n\u20ac Cc 2o  kalvium.community/assessment/oop_spe5_v1_ca1_211002/attempt/07465068- aa8a-4068- 9cf5-4b936e1e3a58/report wv = & \u00a9 @ schoo\n\nbo \u00a9) All Bookmarks\nint length; int width; V a\n\npublic int calculateArea()\n\n5/5\n\nIf we create another object Rectangle r2 = new Rectangle(7, 3);, how are the length and width of r1 related to r2?\n\nr2's length and width will overwrite r1's.\n\nEach object (r1 and r2) has its own\nindependent length and width values.\n\nChanging r1.length will also change r2.length.\n\nThey share the same length and width values.\n\nM\nime Q Search A A \u00a7NG Ce gy @ 109A\n\nrd\ni) 8/1/2025 &\n"
+}
